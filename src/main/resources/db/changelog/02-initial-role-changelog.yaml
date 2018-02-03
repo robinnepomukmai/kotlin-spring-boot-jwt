@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: "initial changeset for role table"
+      author: "nepooomuk"
+      changes:
+        - createTable:
+            tableName: "role"
+            columns:
+              - column:
+                  name: "id"
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: "role_name"
+                  type: varchar(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: "description"
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+
+

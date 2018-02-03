@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: "initial user testdata"
+      author: "nepooomuk"
+      changes:
+      - sqlFile:
+            path: data/authentication_testuser.sql
+            splitStatements: true
+            stripComments: true
+
+
+

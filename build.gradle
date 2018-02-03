@@ -1,0 +1,100 @@
+buildscript {
+    ext.kotlin_version = '1.2.21'
+    ext {
+        springBootVersion = '1.5.10.RELEASE'
+        gradleDockerVersion = '0.17.2'
+    }
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath('com.bmuschko:gradle-docker-plugin:3.2.1')
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.bmuschko.docker-remote-api'
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
+group = 'com.nepomuk'
+//version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+dependencies {
+    //Lombock
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+    testCompile group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+
+    //monitoring, metrics & alerting
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+
+    //web
+    compile('org.springframework.boot:spring-boot-starter-web')
+
+    //API DOKU
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.8.0'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.0.2'
+
+    //persistance
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    runtime('mysql:mysql-connector-java:6.0.6')
+    compile('org.liquibase:liquibase-core')
+
+    compile('mysql:mysql-connector-java')
+
+    //JSON
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.3'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.3'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.3'
+
+    //security
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.security:spring-security-config')
+    compile('org.springframework.security:spring-security-jwt')
+    compile('org.springframework.security.oauth:spring-security-oauth2')
+
+    //tooling
+    compile('org.apache.commons:commons-lang3:3.7')
+    compile('org.springframework.boot:spring-boot-starter-validation')
+    compile('org.springframework.boot:spring-boot-starter-cache')
+
+    //testing
+    testRuntime('com.h2database:h2')
+    testCompile('org.springframework.security:spring-security-test')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+    testCompile "com.google.truth:truth:0.39"
+    runtime('org.springframework.boot:spring-boot-devtools')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
+task buildDockerImage(type: DockerBuildImage) {
+    inputDir = file('.')
+    tag = project.name + "/" + jar.baseName
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}

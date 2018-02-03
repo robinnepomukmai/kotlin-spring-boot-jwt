@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: "initial changeset for role_user joining table"
+      author: "nepooomuk"
+      changes:
+        - createTable:
+            tableName: "user_role"
+            columns:
+              - column:
+                  name: "user_id"
+                  type: varchar(255)
+              - column:
+                  name: "role_id"
+                  type: varchar(255)
+
+
+
+
+
+

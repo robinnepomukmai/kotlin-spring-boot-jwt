@@ -1,0 +1,52 @@
+info:
+  apiVersion: "1.0"
+  build:
+endpoints:
+  prometheus:
+    enabled: true
+
+  actuator:
+    enabled: true
+    sensitive: true
+
+management:
+  context-path: /admin
+  health:
+    db:
+      enabled: false
+    diskspace:
+      enabled: false
+
+liquibase:
+  change-log: "classpath:/db/changelog/changelog-master.yaml"
+
+spring:
+    datasource:
+      url: "jdbc:mysql://127.0.0.1:3306/accountdb?useUnicode=true&characterEncoding=utf8&useSSL=false&nullNamePatternMatchesAll=true&serverTimezone=UTC"
+      username: "root"
+      password: "root"
+      driver-class-name: "com.mysql.cj.jdbc.Driver"
+      tomcat:
+        max-wait: 10000
+        max-active: 50
+        test-on-borrow: true
+
+security:
+  oauth2:
+    resource:
+      filter-order: 3
+  signing-key: "MaYzkSjmkzPC57L"
+  encoding-strength: 256
+  security-realm: "AccounService JWT Realm"
+  jwt:
+    client-id: "accountjwtclient"
+    client-secret: "XY7kmzoNzl100"
+    grant-type: "password"
+    scope-read: "read"
+    scope-write: "write"
+    resource-ids: "testjwtresourceid"
+
+server:
+  session:
+    timeout: 180
+

@@ -1,0 +1,9 @@
+databaseChangeLog:
+ - include:
+         file: /db/changelog/01-initial-user-changelog.yaml
+ - include:
+         file: /db/changelog/02-initial-role-changelog.yaml
+ - include:
+         file: /db/changelog/03-initial-role_user-changelog.yaml
+ - include:
+         file: /db/changelog/04-initial-testuser-data-changelog.yaml
