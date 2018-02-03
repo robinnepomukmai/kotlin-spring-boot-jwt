@@ -20,8 +20,7 @@ First you will need the following basic pieces of information:
 
     client: accountjwtclient
     secret: XY7kmzoNzl100
-    Non-admin username and password: john.doe and jwtpass
-    Admin user: james.dean@nepomuk.io and test123
+    User: james.dean@nepomuk.io and test123
     Example of resource accessible to only an admin user: http://localhost:8080/api/user/{user}
 
     Generate an access token
