@@ -1,4 +1,7 @@
 # kotlin-springboot-jwt
+
+Make sure to follow [Nepomuk Software](https://nepomuksoftware.de) on [Github](https://github.com/Nepomuk-Software) for more example repositories.
+
 An Example Kotlin Spring Boot Application for Securing a REST API with JSON Web Token (JWT)
 
 This application can be used as a seed to quick start your spring boot REST API project with a fully functional security module.
